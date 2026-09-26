@@ -6,9 +6,11 @@
 \usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{3pt}
+\definecolor{roadmapnavy}{HTML}{536B8E}
+\definecolor{roadmapborder}{HTML}{3C5275}
 \newcommand{\roadmapstep}[2]{%
-  \fcolorbox{blue!55!black}{blue!5}{%
-    \parbox[c][0.60in][c]{1.22in}{\centering\small\textbf{#1}\\[2pt]\footnotesize #2}}}
+  \fcolorbox{roadmapborder}{roadmapnavy}{%
+    \parbox[c][0.60in][c]{1.22in}{\centering\color{white}\small\textbf{#1}\\[2pt]\footnotesize #2}}}
 \title{The Work of Reducing Dependence}
 \author{J. R. Landers}
 \date{September 2026}

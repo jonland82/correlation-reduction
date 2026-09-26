@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+
+# LaTeX build intermediates; keep the finished PDFs.
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc

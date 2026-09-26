@@ -1,0 +1,101 @@
+\documentclass[9pt]{article}
+\usepackage[margin=0.66in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,microtype,xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\title{The Work Cost of Reducing Dependence: A Harmonic-Oscillator Model}
+\author{J. R. Landers}
+\date{September 2026}
+\begin{document}
+\maketitle
+\vspace{-1em}
+\begin{abstract}
+Can the energy required to reduce statistical dependence be calculated and tested? We define dependence using $r=p_{XY}/(p_Xp_Y)$ and mutual information, derive an exact reversible-work relation for a coupled harmonic model, and apply an explicitly approximate parameter bridge to a published nanomechanical experiment. Reported coupling settings then yield toy estimates of correlation, information reduction, and work, alongside a frequency check. This gives a concrete route from a general question to a measurable experiment.
+\end{abstract}
+
+\section{Dependence and a solvable equilibrium model}
+Let $X,Y$ have joint density $p(x,y)$ and marginals $p_X,p_Y$. Their pointwise dependence ratio is
+\begin{equation}
+ r(x,y)=\frac{p(x,y)}{p_X(x)p_Y(y)},\qquad
+ I(X;Y)=\iint p(x,y)\log r(x,y)\,dx\,dy .
+\end{equation}
+Independence is equivalent to $r=1$ almost everywhere and $I=0$. Since pointwise values of $r$ need not all move in the same direction, mutual information is a useful scalar measure of overall dependence.\cite{parrondo2015,sagawa2010} For a controlled Hamiltonian $H_\lambda(x,y)$ in a bath at temperature $T$, let $p_\lambda=Z_\lambda^{-1}e^{-H_\lambda/(k_BT)}$. The quasistatic work along a control path is
+\begin{equation}
+ W_{\rm rev}=\int_{\lambda_0}^{\lambda_1}\left\langle\partial_\lambda H_\lambda\right\rangle_\lambda d\lambda=F_{\lambda_1}-F_{\lambda_0},\qquad F_\lambda=-k_BT\log Z_\lambda.
+\end{equation}
+This makes the general calculation precise: predict $I_\lambda$ and $W_\lambda$ along a specified physical control path, then test both against data.\cite{jarzynski1997} There is no single energy number determined by $r$ alone; the Hamiltonian, bath, and path matter.
+
+Consider two classical coordinates with potential energy
+\begin{equation}
+ E(x,y)=\frac{k}{2}(x^2+y^2)+gxy,\qquad k>0,\quad |g|<k.
+\end{equation}
+At equilibrium in a heat bath at temperature $T$, $p\propto e^{-E/(k_BT)}$. The covariance matrix is $k_BT\begin{pmatrix}k&g\\g&k\end{pmatrix}^{-1}$, so the correlation coefficient is $\rho=-g/k$. As this distribution is bivariate Gaussian,
+\begin{equation}
+ I=-\frac12\log(1-\rho^2)=-\frac12\log\!\left(1-\frac{g^2}{k^2}\right).
+\end{equation}
+Thus decreasing $|g|/k$ decreases dependence while leaving the marginal variances equal (their values change with $g$). The equilibrium free energy is $F(g)=C+(k_BT/2)\log(k^2-g^2)$, where $C$ is independent of $g$. For a quasistatic isothermal change $g_0\to g_1$,
+\begin{equation}
+ W_{\rm rev}=\Delta F=\frac{k_BT}{2}\log\!\left(\frac{k^2-g_1^2}{k^2-g_0^2}\right).
+\end{equation}
+For this particular family, $F(g)=C-k_BT I(g)$, hence the especially simple result
+\begin{equation}
+ W_{\rm rev}=k_BT\bigl[I(g_0)-I(g_1)\bigr].
+\end{equation}
+It says that reducing mutual information by one nat costs $k_BT$ of reversible work in this model. This is a model-specific law, not a universal identity for every system. Finite-rate dissipation and actuator costs add to the reversible work; changing temperature alone at fixed $g,k$ leaves $I$ unchanged.
+
+\section{Connection to a measured optomechanical system}
+A published experiment uses two spatially separated SiN membrane modes, each near $\omega_0\simeq2\pi\times400$ kHz. A cavity-mediated interaction tunes their effective coupling $\Lambda$. The article reports damping rates $\gamma_1=2\pi\times12$ Hz and $\gamma_2=2\pi\times6$ Hz, and illustrates coupling settings $\Lambda/2\pi=6,8,58$ Hz and approximately $85$ Hz. It reports coherent heat-flux oscillations in the strong-coupling regime and states that their frequency coincides with $2\Lambda$; oscillations disappear below the stated coupling threshold.\cite{yang2020,xuereb2015}
+
+Using the reported settings, the direct numerical prediction is
+\begin{center}
+\begin{tabular}{rrr}
+\toprule
+$\Lambda/2\pi$ (Hz) & $2\Lambda/2\pi$ (Hz) & period (ms)\\
+\midrule
+6 & 12 & 83.3\\
+8 & 16 & 62.5\\
+58 & 116 & 8.62\\
+85 & 170 & 5.88\\
+\bottomrule
+\end{tabular}
+\end{center}
+These frequencies follow algebraically from the reported coupling values and the paper's $2\Lambda$ relation. The article says the measured oscillation frequency coincides with this prediction, but does not give a table of numerical frequency estimates, so a residual or percent error cannot be calculated from its text. The damping rates correspond to amplitude-decay times $1/\gamma_1=13.3$ ms and $1/\gamma_2=26.5$ ms. At $58$ Hz coupling, the predicted flux period (8.62 ms) is shorter than these decay times, consistent with the reported coherent oscillations.
+
+\paragraph{Putting numbers through the theory.} To connect the equilibrium theory to this device, make the explicit order-of-magnitude identification
+\begin{equation}
+ q:=\frac{|g|}{k}\approx\frac{\Lambda}{\omega_0}.
+\end{equation}
+This treats the dimensionless cross-stiffness as the ratio of coupling rate to resonant frequency. It is a modeling bridge, not a parameter identity established by the experiment. With $\omega_0/2\pi=400$ kHz, the reported settings give the following toy-model estimates:
+\begin{center}
+\begin{tabular}{rrrr}
+\toprule
+$\Lambda/2\pi$ (Hz) & $q$ & $|\rho|=q$ & $I$ (nats)\\
+\midrule
+6  & $1.50\times10^{-5}$ & $1.50\times10^{-5}$ & $1.13\times10^{-10}$\\
+8  & $2.00\times10^{-5}$ & $2.00\times10^{-5}$ & $2.00\times10^{-10}$\\
+58 & $1.45\times10^{-4}$ & $1.45\times10^{-4}$ & $1.05\times10^{-8}$\\
+85 & $2.13\times10^{-4}$ & $2.13\times10^{-4}$ & $2.26\times10^{-8}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Here $I=-\frac12\log(1-q^2)\simeq q^2/2$. In this Gaussian analogue, reducing coupling from 85 to 58 Hz lowers estimated mutual information by about 53.5\%. The reversible-work formula can be evaluated in the same toy model: for 85$\to$58 Hz,
+\begin{equation}
+ W_{\rm rev}=\frac{k_BT}{2}\log\!\left(\frac{1-q_{58}^2}{1-q_{85}^2}\right)\simeq1.21\times10^{-8}k_BT\simeq5.0\times10^{-29}\;\mathrm{J}\quad(T=300\,\mathrm{K}).
+\end{equation}
+The work also follows directly from the model law: $k_BT\Delta I=1.21\times10^{-8}k_BT$. The resulting $5.0\times10^{-29}$ J is the toy model's ideal quasistatic cost for the estimated information reduction. It is not the optical energy used by the apparatus; that comparison is exactly what a calibrated experiment can test.
+
+\section{Remarks}
+The calculation now has a clear chain: infer a dependence statistic from a controlled coupling, use the model's $W_{\rm rev}=k_BT\Delta I$ relation, and compare both with measurements.\cite{sagawa2010,parrondo2015} The oscillator experiment is an exciting candidate because it tunes coupling and observes the response. Our estimate $|g|/k\approx\Lambda/\omega_0$ is a convenient first bridge, not an experimentally established identity.
+
+The experiment drives the two membranes with different thermal reservoirs and tunes coupling using the cavity field. Its article reports mode frequencies, damping and coupling settings, heat-flux behavior, and effective-temperature trends; it says supporting data are available from the authors on request. To test the dependence-reduction theory, one needs synchronized displacement records (or numerical covariance matrices) at multiple coupling settings, plus calibration of the control power. Those data would permit estimating $p(x,y)$, $r(x,y)$, and $I$ with uncertainty, and comparing dependence before and after changing coupling. A quantitative control-energy estimate would additionally require the laser-power-to-$\Lambda$ calibration and the work/dissipation protocol. That gives us a concrete next experiment: estimate $p(x,y)$ and $I$ from the two motion traces as the laser tunes $\Lambda$, then compare the observed trend with the Gaussian prediction. In parallel, calibrated optical input and dissipation would let us put a real control-energy number beside the ideal-work benchmark. The oscillator platform already supplies the ingredients for a lively test of how coupling, dependence, and energy flow fit together.
+\begin{thebibliography}{9}
+\bibitem{jarzynski1997} C. Jarzynski, ``Nonequilibrium equality for free energy differences,'' \emph{Physical Review Letters} 78, 2690--2693 (1997). \href{https://doi.org/10.1103/PhysRevLett.78.2690}{doi:10.1103/PhysRevLett.78.2690}.
+\bibitem{sagawa2010} T. Sagawa and M. Ueda, ``Generalized Jarzynski equality under nonequilibrium feedback control,'' \emph{Physical Review Letters} 104, 090602 (2010). \href{https://doi.org/10.1103/PhysRevLett.104.090602}{doi:10.1103/PhysRevLett.104.090602}.
+\bibitem{parrondo2015} J. M. R. Parrondo, J. M. Horowitz, and T. Sagawa, ``Thermodynamics of information,'' \emph{Nature Physics} 11, 131--139 (2015). \href{https://doi.org/10.1038/nphys3230}{doi:10.1038/nphys3230}.
+\bibitem{xuereb2015} A. Xuereb, A. Imparato, and A. Dantan, ``Heat transport in harmonic oscillator systems with thermal baths: application to optomechanical arrays,'' \emph{New Journal of Physics} 17, 055013 (2015). \href{https://doi.org/10.1088/1367-2630/17/5/055013}{doi:10.1088/1367-2630/17/5/055013}.
+\bibitem{yang2020} C. Yang et al., ``Phonon heat transport in cavity-mediated optomechanical nanoresonators,'' \emph{Nature Communications} 11, 5933 (2020). \href{https://doi.org/10.1038/s41467-020-18426-4}{doi:10.1038/s41467-020-18426-4}.
+\end{thebibliography}
+\end{document}

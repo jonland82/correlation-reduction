@@ -1,0 +1,136 @@
+\documentclass[9pt]{article}
+\usepackage[margin=0.66in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,microtype,xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\title{Dependence, Work, and Entanglement:\\ Corrections and Extensions to the Oscillator Notes}
+\author{J. R. Landers}
+\date{Working note --- September 2026}
+\begin{document}
+\maketitle
+\vspace{-1em}
+\begin{abstract}
+This note does two things. First, it tightens the bridge between the classical coupled-oscillator model and the Yang \emph{et al.} membrane experiment: the experiment's own normal-mode splitting fixes $|g|/k\simeq2|\Lambda|/\omega_0$ (not $\Lambda/\omega_0$), and the experiment is a two-temperature steady state, in which the dominant dependence is a heat-current correlation $10^3$--$10^8$ times larger than the equilibrium estimate. Second, it puts the classical and quantum notes on a common footing. An exact free-energy decomposition explains why decoupling an equilibrium-correlated pair costs work while unsqueezing a two-mode squeezed state releases it; the quantum Gibbs state of the same coupled oscillators recovers $W=k_BT\Delta I$ in the classical limit and shows where entanglement appears; and a squeezed thermal family shows that released work tracks neither $I$ nor $E_N$. All numbers are reproduced by \texttt{extensions\_calculations.py}.
+\end{abstract}
+
+\section{\texorpdfstring{The coupling bridge: $q=2|\Lambda|/\omega_0$}{The coupling bridge}}
+Yang \emph{et al.} write the mode dynamics (their Eq.~1) as
+$i\,\partial_t(b_1,b_2)^T=\bigl(\begin{smallmatrix}\omega_0-i\gamma_1/2+\Lambda & \Lambda\\ \Lambda & \omega_0-i\gamma_2/2+\Lambda\end{smallmatrix}\bigr)(b_1,b_2)^T+\text{noise}$,
+with normal modes at $\omega_0$ and $\omega_0+2\Lambda$ ($\Lambda<0$: the optical spring is negative).\cite{yang2020} For the classical model $E=\tfrac{k}{2}(x^2+y^2)+gxy$ with mass $m$, the normal modes are $\omega_\pm=\omega_0\sqrt{1\pm q}$, $q=|g|/k$, split by $\omega_0 q+O(q^3)$. Matching splittings gives
+\begin{equation}
+ q=\frac{|g|}{k}\simeq\frac{2|\Lambda|}{\omega_0}.
+\end{equation}
+The same follows by writing $g\,x_1x_2$ with $x_i=x_{\rm zpf}(b_i+b_i^\dagger)$, $x_{\rm zpf}^2=\hbar/2m\omega_0$, and keeping resonant terms: $\hbar\Lambda=g\,x_{\rm zpf}^2$, i.e.\ $\Lambda=g/2m\omega_0$. It is also why the heat flux oscillates at $2\Lambda$: that is the normal-mode beat frequency. The earlier identification $q\approx\Lambda/\omega_0$ was low by a factor of 2, so $I\simeq q^2/2$ and $W_{\rm rev}$ were low by a factor of 4:
+\begin{center}
+\begin{tabular}{rrrr}
+\toprule
+$\Lambda/2\pi$ (Hz) & $q=2|\Lambda|/\omega_0$ & $I$ (nats), corrected & $I$ (nats), previous\\
+\midrule
+6  & $3.00\times10^{-5}$ & $4.50\times10^{-10}$ & $1.13\times10^{-10}$\\
+8  & $4.00\times10^{-5}$ & $8.00\times10^{-10}$ & $2.00\times10^{-10}$\\
+58 & $2.90\times10^{-4}$ & $4.21\times10^{-8}$  & $1.05\times10^{-8}$\\
+85 & $4.25\times10^{-4}$ & $9.03\times10^{-8}$  & $2.26\times10^{-8}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For $85\to58$ Hz, $\Delta I=4.83\times10^{-8}$ nats and $W_{\rm rev}=k_BT\Delta I=2.0\times10^{-28}$ J at 300 K (previously $5.0\times10^{-29}$ J). The fractional drop in $I$ (53.4\%) is unchanged.
+
+Two smaller corrections. (i) In Yang's Eq.~1 the amplitude decays at $\gamma_i/2$, so $1/\gamma_1=13.3$ ms and $1/\gamma_2=26.5$ ms are \emph{energy}-decay times; amplitude-decay times are 26.5 and 53.1 ms. The conclusion that the 8.62 ms flux period is shorter still holds. (ii) The reference is \emph{Nat.\ Commun.}\ \textbf{11}, 4656 (2020), not 5933. For context, Yang's strong-coupling threshold is $|\Lambda|=|\gamma_1-\gamma_2|/4$, i.e.\ $|\Lambda|/2\pi=1.5$ Hz, so all four reported settings are in the strong-coupling regime.
+
+\section{The experiment is a steady state, not an equilibrium}
+In the experiment, membrane 1 is driven by white noise (hot bath $T_H$) and membrane 2 sits at room temperature ($T_L$). The equilibrium result $W_{\rm rev}=\Delta F$ assumes a Gibbs state, which this is not. Solving Yang's Eq.~1 in steady state with thermal occupations $n_i=k_BT_i/\hbar\omega_0$ gives, in closed form,
+\begin{equation}
+ s\equiv\operatorname{Im}\langle b_1b_2^\dagger\rangle=\frac{2\Lambda\gamma_1\gamma_2(n_1-n_2)}{(\gamma_1+\gamma_2)(\gamma_1\gamma_2+4\Lambda^2)},\qquad
+ N_{11}=n_1-\frac{2\Lambda s}{\gamma_1},\quad N_{22}=n_2+\frac{2\Lambda s}{\gamma_2},
+\end{equation}
+with $\operatorname{Re}\langle b_1b_2^\dagger\rangle=0$ on resonance. The heat current is $J=2\hbar\omega_0\Lambda s$, which reproduces Yang's saturated value $\gamma_1\gamma_2k_B(T_H-T_L)/(\gamma_1+\gamma_2)$. Since the steady state is Gaussian, the mutual information of the full phase-space state $(u_1,\dot u_1;u_2,\dot u_2)$ is
+\begin{equation}
+ I_{\rm ph}=-\log(1-|\rho|^2),\qquad |\rho|=\frac{|s|}{\sqrt{N_{11}N_{22}}}=\frac{|J|}{2|\Lambda|\,k_B\sqrt{T_1^{\rm eff}T_2^{\rm eff}}}.
+\end{equation}
+In the lab frame this correlation lives between $u_1$ and $\dot u_2$, a quarter period out of phase. It is exactly the quantity Yang \emph{et al.} integrate to measure heat flux, $j\propto-\langle u_1\dot u_2\rangle$. The equal-time position correlation stays at $\simeq q$. A full non-rotating-wave Langevin solution (Lyapunov equation, no approximations; checked against the Gibbs value at $T_1=T_2$) agrees with Eq.~(3) to four digits and gives:
+\begin{center}
+\begin{tabular}{rrrrrr}
+\toprule
+& Gibbs (Sec.~1) & \multicolumn{2}{c}{$T_H/T_L=2$} & \multicolumn{2}{c}{$T_H/T_L=10$}\\
+\cmidrule(lr){2-2}\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+$\Lambda/2\pi$ (Hz) & $I$ & $I_{\rm pos}$ & $I_{\rm ph}$ & $I_{\rm pos}$ & $I_{\rm ph}$\\
+\midrule
+6  & $4.50\times10^{-10}$ & $4.87\times10^{-10}$ & $1.94\times10^{-2}$ & $5.51\times10^{-10}$ & $1.05\times10^{-1}$\\
+8  & $8.00\times10^{-10}$ & $8.40\times10^{-10}$ & $1.45\times10^{-2}$ & $9.01\times10^{-10}$ & $7.35\times10^{-2}$\\
+58 & $4.21\times10^{-8}$  & $4.21\times10^{-8}$  & $4.24\times10^{-4}$ & $4.22\times10^{-8}$  & $1.95\times10^{-3}$\\
+85 & $9.03\times10^{-8}$  & $9.04\times10^{-8}$  & $1.98\times10^{-4}$ & $9.05\times10^{-8}$  & $9.12\times10^{-4}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Three consequences follow.
+(i) The equilibrium estimate survives only for equal-time \emph{positions}; it is within 25\% of $I_{\rm pos}$ at every setting.
+(ii) The dominant dependence is sustained by the heat current and is $10^3$--$10^8$ times larger. It is \emph{largest at weak coupling}, peaking near $4\Lambda^2=\gamma_1\gamma_2$, and falls as $\Lambda$ grows and the two effective temperatures equalize. This is the opposite trend to the equilibrium model.
+(iii) There is no free energy for a steady state, so $W=k_BT\Delta I$ has no direct analogue here. What maintains the correlation is a continuous entropy production $\dot\Sigma=J(1/T_L-1/T_H)$, and the natural framework is information flow in steady states.\cite{horowitz2014}
+The practical upshot is that Eq.~(3) needs only $J$, $\Lambda$, and $T^{\rm eff}_{1,2}$, all of which Yang \emph{et al.} plot (their Figs.~2d, 3b, 5a). $I_{\rm ph}$ can therefore be estimated at every reported setting without new measurements.
+
+\section{One identity behind both notes}
+For $H=H_A+H_B+V$ and any state $\rho_{AB}$, the nonequilibrium free energy $\mathcal F(\rho;H)=\operatorname{Tr}\rho H-k_BTS(\rho)$ splits exactly as
+\begin{equation}
+ \mathcal F(\rho_{AB};H)=\mathcal F(\rho_A;H_A)+\mathcal F(\rho_B;H_B)+k_BT\,I(A\!:\!B)+\langle V\rangle,
+\end{equation}
+classically and quantum mechanically, because $S_{AB}=S_A+S_B-I$. Since $\mathcal F(\rho)-F_{\rm eq}=k_BT\,D(\rho\Vert\gamma)$ bounds isothermal work extraction,\cite{esposito2011} correlations are always a free-energy \emph{resource} worth exactly $k_BT\,I$.\cite{oppenheim2002,perarnau2015} Whether removing them costs or releases work depends on the other terms.
+
+\emph{Classical note.} For the Gibbs state at coupling $q$, relative to the uncoupled equilibrium:
+\begin{equation}
+ F(g)-F(0)=\underbrace{k_BT(s-1-\ln s)}_{\text{local},\ O(q^4)}+\underbrace{k_BT\,I}_{\simeq k_BTq^2/2}+\underbrace{\langle V\rangle}_{=-k_BTq^2/(1-q^2)}=-k_BT\,I,\qquad s=\frac{1}{1-q^2}.
+\end{equation}
+Decoupling costs work because the interaction energy $\langle V\rangle\approx-2k_BTI$ must be paid back, and the correlation free energy refunds half of it. The law $W=k_BT\Delta I$ is this specific cancellation, which is why it is model-specific.
+
+\emph{Quantum note.} For the two-mode squeezed vacuum, $V=0$ at both endpoints and the correlations sit on top of excess local energy, so every term in Eq.~(4) is released when they are removed. The sign difference between the two notes is therefore \emph{not} classical versus quantum. It is equilibrium correlations bound by an interaction versus nonequilibrium correlations carried by excess energy.
+
+\section{Quantum equilibrium counterpart of the classical model}
+Quantizing the same Hamiltonian gives normal modes $\omega_\pm=\omega_0\sqrt{1\pm q}$. The Gibbs state is Gaussian, with free energy $F=\sum_\pm k_BT\ln[2\sinh(\hbar\omega_\pm/2k_BT)]$. Partial transposition gives the entanglement condition $\coth(\hbar\omega_+/2k_BT)\coth(\hbar\omega_-/2k_BT)<\omega_+/\omega_-$ and, at $T=0$, $E_N=\tfrac14\ln\frac{1+q}{1-q}\simeq q/2$.\cite{audenaert2002} For $q=0.2$:
+\begin{center}
+\begin{tabular}{rrrr}
+\toprule
+$k_BT/\hbar\omega_0$ & decoupling cost $-\Delta F$ ($\hbar\omega_0$) & $-\Delta F/(k_BT\,I)$ & $E_N$ (nats)\\
+\midrule
+$\to0$ & $5.06\times10^{-3}$ & $\to\infty$ & 0.101\\
+0.05 & $5.06\times10^{-3}$ & 2.83 & 0.101\\
+0.1  & $5.07\times10^{-3}$ & 1.44 & 0.101\\
+0.3  & $6.77\times10^{-3}$ & 1.013 & 0.025\\
+1    & $2.04\times10^{-2}$ & 1.0002 & 0\\
+\bottomrule
+\end{tabular}
+\end{center}
+(a) Decoupling costs work at every temperature, including in the entangled regime. (b) $W=k_BT\Delta I$ is recovered once $k_BT\gtrsim0.3\,\hbar\omega_0$. At $T=0$, $k_BTI\to0$ while the cost tends to the ground-state shift $\simeq\hbar\omega_0q^2/8\simeq\tfrac12\hbar\omega_0E_N^2$. (c) Entanglement vanishes above $k_BT_c\simeq\hbar\omega_0/\ln(4/q)$. For the membrane experiment ($q=4.25\times10^{-4}$, $\omega_0/2\pi=400$ kHz) this gives $T_c\approx2.1\ \mu$K, against a room-temperature occupation of $1.6\times10^7$ phonons. A static cavity-mediated coupling therefore cannot entangle those membranes. Entanglement requires parametric (two-mode-squeezing) interactions and reservoir engineering, as in the experiments cited in the quantum note.
+
+\section{\texorpdfstring{Mixed states: work tracks neither $I$ nor $E_N$}{Mixed states: work tracks neither I nor E-N}}
+For a two-mode squeezed thermal state (squeezing $r$ applied to thermal occupation $n$ per mode): $n_a=[(2n+1)\cosh2r-1]/2$, $I=2g(n_a)-2g(n)$, $E_N=\max\{0,\,2r-\ln(2n+1)\}$. Ideal unsqueezing gives $W_{\rm on}=-2\hbar\omega(2n+1)\sinh^2r$. For $r=0.5$:
+\begin{center}
+\begin{tabular}{rrrr}
+\toprule
+$n$ & $I$ (nats) & $E_N$ (nats) & $W_{\rm on}$ ($\hbar\omega$)\\
+\midrule
+0     & 1.319 & 1.000 & $-0.543$\\
+0.5   & 0.922 & 0.307 & $-1.086$\\
+0.859 & 0.895 & 0     & $-1.476$\\
+5     & 0.869 & 0     & $-5.97$\\
+100   & 0.868 & 0     & $-109.2$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Entanglement vanishes at $n=(e^{2r}-1)/2=0.859$, and $I$ saturates at $2\ln\cosh2r=0.868$ nats, yet the released energy grows linearly in $2n+1$. The released energy is the state's ergotropy. Because the reduced states are thermal, and hence locally passive, all of it is attributable to correlations, but it is not a function of any correlation measure.\cite{perarnau2015,huber2015} What \emph{is} fixed is the bath-assisted value of the correlations, $k_BT\,I$, from Eq.~(4).
+
+\section{Implications for the two notes}
+\textbf{Classical note:} replace $q\approx\Lambda/\omega_0$ with $q\approx2|\Lambda|/\omega_0$ and justify it via the normal-mode splitting (all $I$ and $W$ values $\times4$); relabel the damping times as energy-decay times; correct the reference to 11, 4656; state that the experiment is a steady state, so $W=k_BT\Delta I$ applies only to a hypothetical equal-temperature version; add $I_{\rm ph}$ from Eq.~(3) as the experimentally relevant dependence; and ask for (or digitize) $T^{\rm eff}_{1,2}$, $J$, and $\Lambda$ versus photon number.
+\textbf{Quantum note:} add the Eq.~(4) explanation of the sign, the Gibbs-state table as the like-for-like counterpart, and the squeezed thermal family to show that $I$ and $E_N$ come apart and neither controls the work.
+
+\begin{thebibliography}{9}
+\bibitem{yang2020} C. Yang, X. Wei, J. Sheng, and H. Wu, ``Phonon heat transport in cavity-mediated optomechanical nanoresonators,'' \emph{Nature Communications} 11, 4656 (2020). \href{https://doi.org/10.1038/s41467-020-18426-4}{doi:10.1038/s41467-020-18426-4}.
+\bibitem{horowitz2014} J. M. Horowitz and M. Esposito, ``Thermodynamics with continuous information flow,'' \emph{Physical Review X} 4, 031015 (2014). \href{https://doi.org/10.1103/PhysRevX.4.031015}{doi:10.1103/PhysRevX.4.031015}.
+\bibitem{esposito2011} M. Esposito and C. Van den Broeck, ``Second law and Landauer principle far from equilibrium,'' \emph{EPL} 95, 40004 (2011). \href{https://doi.org/10.1209/0295-5075/95/40004}{doi:10.1209/0295-5075/95/40004}.
+\bibitem{oppenheim2002} J. Oppenheim, M. Horodecki, P. Horodecki, and R. Horodecki, ``Thermodynamical approach to quantifying quantum correlations,'' \emph{Physical Review Letters} 89, 180402 (2002). \href{https://doi.org/10.1103/PhysRevLett.89.180402}{doi:10.1103/PhysRevLett.89.180402}.
+\bibitem{perarnau2015} M. Perarnau-Llobet, K. V. Hovhannisyan, M. Huber, P. Skrzypczyk, N. Brunner, and A. Ac\'in, ``Extractable work from correlations,'' \emph{Physical Review X} 5, 041011 (2015). \href{https://doi.org/10.1103/PhysRevX.5.041011}{doi:10.1103/PhysRevX.5.041011}.
+\bibitem{huber2015} M. Huber, M. Perarnau-Llobet, K. V. Hovhannisyan, P. Skrzypczyk, C. Kl\"ockl, N. Brunner, and A. Ac\'in, ``Thermodynamic cost of creating correlations,'' \emph{New Journal of Physics} 17, 065008 (2015). \href{https://doi.org/10.1088/1367-2630/17/6/065008}{doi:10.1088/1367-2630/17/6/065008}.
+\bibitem{audenaert2002} K. Audenaert, J. Eisert, M. B. Plenio, and R. F. Werner, ``Entanglement properties of the harmonic chain,'' \emph{Physical Review A} 66, 042327 (2002). \href{https://doi.org/10.1103/PhysRevA.66.042327}{doi:10.1103/PhysRevA.66.042327}.
+\end{thebibliography}
+\end{document}

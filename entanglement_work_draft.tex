@@ -1,0 +1,110 @@
+\documentclass[9pt]{article}
+\usepackage[margin=0.66in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,microtype,xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\title{Work and Entanglement in Coupled Quantum Oscillators}
+\author{J. R. Landers}
+\date{Draft --- September 2026}
+\begin{document}
+\maketitle
+\vspace{-1em}
+\begin{abstract}
+We extend a classical question---how much work accompanies a reduction in dependence?---to quantum systems. Quantum mutual information is the direct analogue of classical mutual information, but it includes classical as well as quantum correlations. Entanglement therefore requires its own measure. For two-mode Gaussian states, both quantities can be calculated from the covariance matrix, while work is determined by the controlled Hamiltonian and protocol. A two-mode squeezed vacuum gives a compact example in which removing entanglement can release energy. We outline how to measure a work-versus-entanglement curve in a quantum optomechanical oscillator experiment.
+\end{abstract}
+
+\section{From a dependence ratio to a quantum state}
+For classical variables, the dependence ratio is $r(x,y)=p(x,y)/(p_X(x)p_Y(y))$, and its average log is the mutual information. The quantum analogue starts with a joint density operator $\rho_{AB}$ and reduced states $\rho_A=\operatorname{Tr}_B\rho_{AB}$, $\rho_B=\operatorname{Tr}_A\rho_{AB}$. Define
+\begin{equation}
+ I(A\!:\!B)=S(\rho_A)+S(\rho_B)-S(\rho_{AB})
+ =D(\rho_{AB}\Vert\rho_A\otimes\rho_B),
+\end{equation}
+where $S(\rho)=-\operatorname{Tr}(\rho\log\rho)$ and $D(\rho\Vert\sigma)=\operatorname{Tr}[\rho(\log\rho-\log\sigma)]$. For states diagonal in a common product basis, this reduces to classical mutual information. In general, there is no pointwise quantum ratio $r(x,y)$: noncommuting operators replace probabilities.
+
+Mutual information is still broader than entanglement. For example, $\frac12(|00\rangle\langle00|+|11\rangle\langle11|)$ has nonzero mutual information but is separable. To target entanglement, use a measure such as logarithmic negativity
+\begin{equation}
+ E_N(\rho_{AB})=\log\|\rho_{AB}^{T_B}\|_1,
+\end{equation}
+where $T_B$ is partial transpose and $\|\cdot\|_1$ is trace norm. For two-mode Gaussian states, covariance-matrix criteria give an efficient entanglement test and quantification.\cite{vidal2002,duan2000,weedbrook2012}
+
+\section{A solvable oscillator example}
+Take two equal-frequency bosonic modes with bare Hamiltonian
+\begin{equation}
+ H_0=\hbar\omega(a^\dagger a+b^\dagger b),
+\end{equation}
+and prepare a two-mode squeezed vacuum
+\begin{equation}
+ |\psi_r\rangle=\frac{1}{\cosh r}\sum_{n=0}^{\infty}(\tanh r)^n|n,n\rangle.
+\end{equation}
+The squeezing parameter $r$ controls both correlations and energy. Each mode has mean occupation $\bar n=\sinh^2r$. The state is pure, so its quantum mutual information is twice the entropy of either mode:
+\begin{equation}
+ I(A\!:\!B)=2g(\bar n),\qquad
+ g(n)=(n+1)\log(n+1)-n\log n.
+\end{equation}
+Its logarithmic negativity is $E_N=2r$ (natural-log convention), and its energy above the two-mode vacuum is
+\begin{equation}
+ \Delta E=\langle H_0\rangle=2\hbar\omega\sinh^2r.
+\end{equation}
+Thus $I$ and $E_N$ are related along this particular state family, but they are different measures and need not track one another for mixed states.
+
+For a closed system driven by a time-dependent control Hamiltonian $H(t)$, the work done on the system is
+\begin{equation}
+ W_{\rm on}=\int_{t_0}^{t_1}\operatorname{Tr}[\rho(t)\,\partial_t H(t)]\,dt.
+\end{equation}
+If the control interaction is off at both endpoints, $W_{\rm on}=\Delta\langle H_0\rangle$. An ideal global unsqueezing operation taking $r_0$ to $r_1$ therefore gives
+\begin{equation}
+ W_{\rm on}=2\hbar\omega\left(\sinh^2r_1-\sinh^2r_0\right).
+\end{equation}
+For $r_0=0.5\to r_1=0$, $E_N$ falls from $1$ nat to zero, while $W_{\rm on}=-0.543\,\hbar\omega$: the ideal process extracts that energy. At $\omega/2\pi=400$ kHz, this is $1.44\times10^{-28}$ J extracted. This is not a universal cost of disentanglement. It is the energy released from this specified initial state under a global, reversible control; other states, Hamiltonians, baths, and allowed operations give different work-versus-entanglement curves. Thermodynamic work and quantum correlations have been connected in several operational settings.\cite{oppenheim2002}
+
+\section{A route to an experiment}
+A suitable platform is a pair of quantum-regime mechanical modes coupled through a microwave or optical cavity. Experiments have demonstrated stabilized entanglement between massive mechanical oscillators, inferred from correlated mechanical fluctuations and cavity readout.\cite{ockeloen2018} For a two-mode Gaussian state, reconstruct the quadrature covariance matrix $V$ from calibrated measurements. Its symplectic eigenvalues give $S(\rho_{AB})$ and those of the reduced modes give $S(\rho_A),S(\rho_B)$, hence $I(A\!:\!B)$. Partial transpose flips the sign of one momentum quadrature; if its smallest symplectic eigenvalue is $\tilde\nu_-<\hbar/2$, the state is entangled, with
+\begin{equation}
+ E_N=\max\!\left\{0,-\log\!\left(\frac{2\tilde\nu_-}{\hbar}\right)\right\}.
+\end{equation}
+
+Next, vary a calibrated control parameter (for example, a parametric drive or cavity-mediated coupling) and record the state covariance, pump work, and heat flow at each setting. The resulting empirical curve $W_{\rm on}$ versus $\Delta E_N$ is the quantum counterpart of our original work-versus-dependence question. A strong test would compare measured work with a model fitted to the same Hamiltonian and damping, and repeat the protocol at several temperatures and rates. The point is not to assume a universal $k_BT\Delta E_N$ law, but to find which parts of the curve follow from the oscillator model and which arise from the chosen control and environment.
+
+
+\section{Preliminary match to public data}
+A useful first check is the public dataset for entanglement of propagating optical modes mediated by a mechanical resonator. The experiment reports the Duan-Giedke-Cirac-Zoller inseparability witness $\mathcal I=0.83$ (with 2\% statistical and 0.3\% systematic uncertainty) and the smallest partially transposed symplectic eigenvalue $2\tilde\nu_-=0.79$. Its reported logarithmic negativity is $E_N=0.35$ bits.\cite{chen2020}
+
+For this reported normalization, the Gaussian-state formula in Section 3 becomes
+\begin{equation}
+ E_N=\max\!\left\{0,-\log\!\left(\frac{2\tilde\nu_-}{\hbar}\right)\right\},
+ \qquad \frac{2\tilde\nu_-}{\hbar}=0.79.
+\end{equation}
+Substitution gives the calculation explicitly:
+\begin{equation}
+ E_N^{(\mathrm{nats})}=\max\{0,-\ln(0.79)\}=0.2357,\qquad
+ E_N^{(\mathrm{bits})}=\frac{E_N^{(\mathrm{nats})}}{\ln 2}
+ =\frac{0.2357}{0.6931}=0.340\ \mathrm{bits}.
+\end{equation}
+The reported value is 0.35 bits, a difference of 0.010 bits (about 3\%) from this estimate. Since 0.79 is rounded to two decimals, its underlying value lies approximately in $[0.785,0.795)$, which maps to $E_N\in(0.330,0.349]$ bits; the reported value is consistent at the precision of the published rounded input. Independently, the witness gives $\mathcal I=0.83<1$, on the entangled side of its separability threshold. This is a direct preliminary check of the state-analysis formalism.
+
+Two further arithmetic checks quantify the operating point. The paper's reduced efficiency model gives
+\begin{equation}
+ \mathcal I_{\min}=1-\frac{\eta_{\rm meas}}{2}
+ =1-\frac{0.58}{2}=0.71;\qquad
+ \mathcal I_{\rm obs}-\mathcal I_{\min}=0.83-0.71=0.12.
+\end{equation}
+The fuller optomechanical model includes device details and agrees with the phase-dependent data. For the reported drive-induced quantum-backaction rates and thermal decoherence rate, the common $2\pi$ factor cancels:
+\begin{equation}
+ \frac{\Gamma_{\rm qba}}{\Gamma_{\rm th}}
+ =\frac{2\pi(1.35+0.89)\,{\rm kHz}}{2\pi(0.20)\,{\rm kHz}}
+ =\frac{2.24}{0.20}=11.2.
+\end{equation}
+This ratio is a control-strength proxy, not an energy or a work estimate. In the paper's work formalism, $W_{\rm on}=\int\!\operatorname{Tr}[\rho(t)\,\partial_tH(t)]\,dt$; the published rates and single operating-point covariance do not supply the calibrated $H(t)$ and state trajectory needed to evaluate that integral. Thus this dataset checks the entanglement calculation and supplies a quantitative operating-point benchmark, while a work-versus-entanglement curve requires calibrated drive power and losses across multiple settings. The public archive contains the raw and source data for the figures, enabling frequency-resolved covariance and entanglement estimates as a next calculation.\cite{chen2020}
+
+\begin{thebibliography}{9}
+\bibitem{vidal2002} G. Vidal and R. F. Werner, ``A computable measure of entanglement,'' \emph{Physical Review A} 65, 032314 (2002). \href{https://doi.org/10.1103/PhysRevA.65.032314}{doi:10.1103/PhysRevA.65.032314}.
+\bibitem{duan2000} L.-M. Duan, G. Giedke, J. I. Cirac, and P. Zoller, ``Inseparability criterion for continuous variable systems,'' \emph{Physical Review Letters} 84, 2722--2725 (2000). \href{https://doi.org/10.1103/PhysRevLett.84.2722}{doi:10.1103/PhysRevLett.84.2722}.
+\bibitem{weedbrook2012} C. Weedbrook et al., ``Gaussian quantum information,'' \emph{Reviews of Modern Physics} 84, 621--669 (2012). \href{https://doi.org/10.1103/RevModPhys.84.621}{doi:10.1103/RevModPhys.84.621}.
+\bibitem{oppenheim2002} J. Oppenheim, M. Horodecki, P. Horodecki, and R. Horodecki, ``Thermodynamical approach to quantifying quantum correlations,'' \emph{Physical Review Letters} 89, 180402 (2002). \href{https://doi.org/10.1103/PhysRevLett.89.180402}{doi:10.1103/PhysRevLett.89.180402}.
+\bibitem{ockeloen2018} C. F. Ockeloen-Korppi et al., ``Stabilized entanglement of massive mechanical oscillators,'' \emph{Nature} 556, 478--482 (2018). \href{https://doi.org/10.1038/s41586-018-0038-x}{doi:10.1038/s41586-018-0038-x}.
+\bibitem{chen2020} J. Chen, M. Rossi, D. Mason, and A. Schliesser, ``Entanglement of propagating optical modes via a mechanical interface,'' \emph{Nature Communications} 11, 943 (2020). Raw/source data: \href{https://doi.org/10.17894/ucph.3e60afa5-6377-4488-ab27-850f1e7e8615}{doi:10.17894/ucph.3e60afa5-6377-4488-ab27-850f1e7e8615}.
+\end{thebibliography}
+\end{document}

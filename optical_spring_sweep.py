@@ -173,7 +173,9 @@ def plot(rows):
     axs[1].yaxis.labelpad = 1
     handles, labels = axs[0].get_legend_handles_labels()
     fig.legend(handles, labels, title=r"$T_H/T_L$", loc="center",
-               bbox_to_anchor=(0.50, 0.55), frameon=False,
+               bbox_to_anchor=(0.50, 0.55), frameon=True, fancybox=False,
+               facecolor="white", edgecolor="#536B8E", framealpha=1,
+               borderpad=0.35,
                handlelength=1.2, labelspacing=0.6)
     for ax in axs:
         ax.grid(alpha=0.25)

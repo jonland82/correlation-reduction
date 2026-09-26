@@ -149,34 +149,29 @@ def run(ratio, duration_ms):
 
 
 def plot(rows):
-    fig, axs = plt.subplots(1, 2, figsize=(9.5, 3.9))
-    axs[0].set_position([0.105, 0.23, 0.315, 0.63])
-    axs[1].set_position([0.60, 0.23, 0.28, 0.63])
+    fig, axs = plt.subplots(1, 2, figsize=(9.5, 4.2))
+    axs[0].set_position([0.10, 0.30, 0.34, 0.58])
+    axs[1].set_position([0.57, 0.30, 0.34, 0.58])
     colors = {1.0: "#1b9e77", 10.0: "#d95f02", 430.0: "#7570b3"}
     for ratio in RATIOS:
         rr = [r for r in rows if r["ratio"] == ratio]
         x = [r["duration_ms"] for r in rr if r["duration_ms"] > 0]
         y = [r["work_kBTlow"] for r in rr if r["duration_ms"] > 0]
-        axs[0].plot(x, y, "o-", color=colors[ratio], label=f"{ratio:g}")
+        axs[0].plot(x, y, "o-", color=colors[ratio], label=f"$T_H/T_L={ratio:g}$")
         axs[0].axhline(rr[0]["work_kBTlow"], color=colors[ratio], ls=":", alpha=0.4)
         axs[1].plot(x, [r["excess_work_kBTlow"] for r in rr if r["duration_ms"] > 0],
                     "o-", color=colors[ratio])
     rev = 0.5 * np.log((1 + 2 * G1) / (1 + 2 * G0))
-    axs[0].axhline(rev, color="black", ls="--", lw=1.2, label="equal-T rev.")
+    axs[0].axhline(rev, color="black", ls="--", lw=1.2, label="equal-T reversible")
     axs[0].set(xscale="log", yscale="log", xlabel="Ramp duration (ms)",
                ylabel=r"Total work ($k_B T_L$)", title="Full optical spring")
     axs[1].set(xscale="log", yscale="log", xlabel="Ramp duration (ms)",
                ylabel=r"Work above quasistatic ($k_B T_L$)",
                title="Finite-speed excess")
-    axs[1].yaxis.set_label_position("right")
-    axs[1].yaxis.tick_right()
-    axs[1].yaxis.labelpad = 1
     handles, labels = axs[0].get_legend_handles_labels()
-    fig.legend(handles, labels, title=r"$T_H/T_L$", loc="center",
-               bbox_to_anchor=(0.50, 0.55), frameon=True, fancybox=False,
-               facecolor="white", edgecolor="#536B8E", framealpha=1,
-               borderpad=0.35,
-               handlelength=1.2, labelspacing=0.6)
+    fig.legend(handles, labels, loc="lower center", ncol=4,
+               bbox_to_anchor=(0.5, 0.02), frameon=False,
+               handlelength=1.5, columnspacing=1.2)
     for ax in axs:
         ax.grid(alpha=0.25)
     fig.savefig(OUT / "work_vs_duration.png", dpi=180)

@@ -6,6 +6,9 @@
 \usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{5pt}
+\newcommand{\roadmapstep}[2]{%
+  \fcolorbox{blue!55!black}{blue!5}{%
+    \parbox[c][0.72in][c]{1.22in}{\centering\small\textbf{#1}\\[2pt]\footnotesize #2}}}
 \title{The Work of Reducing Dependence}
 \author{J. R. Landers}
 \date{September 2026}
@@ -15,6 +18,17 @@
 \begin{abstract}
 Can we predict the work needed to make two physical systems less dependent, then check the prediction against an experiment? We begin with the pointwise dependence ratio $R=p_{12}/(p_1p_2)$ and use its average log, mutual information $I$, to measure overall dependence. A solvable equilibrium model predicts exactly that a slow reduction of $I$ by $\Delta I$ costs $k_BT\Delta I$ of work. We then examine two cavity-coupled membranes as a possible test. Their published coupling and heat-flux measurements constrain the model, but the real device has two baths and an optical spring that changes each membrane's frequency. In that model, lowering coupling reduces position dependence while increasing dependence carried by the heat current. It still requires positive control work. Existing figures check the heat-flux scale but do not report the joint motion and control work needed to test our main prediction. We state the required measurements explicitly.
 \end{abstract}
+
+\begin{center}
+\small\textbf{From theory to experimental test}\\[6pt]
+\roadmapstep{Measure dependence}{$R$ and $I$}
+\hspace{2pt}$\rightarrow$\hspace{2pt}
+\roadmapstep{Predict work}{Equilibrium benchmark}
+\hspace{2pt}$\rightarrow$\hspace{2pt}
+\roadmapstep{Model membranes}{Two baths and optical spring}
+\hspace{2pt}$\rightarrow$\hspace{2pt}
+\roadmapstep{Propose a test}{Joint motion and control work}
+\end{center}
 
 \section{Dependence and work}
 Let $x$ and $y$ denote simultaneous position measurements of two oscillators. Their pointwise dependence ratio is

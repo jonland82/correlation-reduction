@@ -6,10 +6,9 @@
 \usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{5pt}
-\title{How Much Work Does It Take to Reduce Dependence?\\
-A Two-Oscillator Prediction and a Route to an Experimental Test}
+\title{The Work of Reducing Dependence}
 \author{J. R. Landers}
-\date{Revised working manuscript --- September 2026}
+\date{September 2026}
 \begin{document}
 \maketitle
 
@@ -17,7 +16,7 @@ A Two-Oscillator Prediction and a Route to an Experimental Test}
 Can we predict the work needed to make two physical systems less dependent, then check the prediction against an experiment? We begin with the pointwise dependence ratio $R=p_{12}/(p_1p_2)$ and use its average log, mutual information $I$, to measure overall dependence. A solvable equilibrium model predicts exactly that a slow reduction of $I$ by $\Delta I$ costs $k_BT\Delta I$ of work. We then examine two cavity-coupled membranes as a possible test. Their published coupling and heat-flux measurements constrain the model, but the real device has two baths and an optical spring that changes each membrane's frequency. In that model, lowering coupling reduces position dependence while increasing dependence carried by the heat current. It still requires positive control work. Existing figures check the heat-flux scale but do not report the joint motion and control work needed to test our main prediction. We state the required measurements explicitly.
 \end{abstract}
 
-\section{The question: a ratio, an information change, and a work change}
+\section{Dependence and work}
 Let $x$ and $y$ denote simultaneous position measurements of two oscillators. Their pointwise dependence ratio is
 \begin{equation}
  R(x,y)=\frac{p(x,y)}{p_1(x)p_2(y)},\qquad
@@ -28,7 +27,7 @@ If the positions are independent, $R=1$ almost everywhere and $I=0$. For depende
 
 The ratio describes a state, whereas work describes a process. We therefore specify a controlled Hamiltonian and a bath before relating $I$ to work. A test must measure the joint state at each coupling and the energy exchanged while coupling changes.
 
-\section{First prediction: a model we can solve exactly}
+\section{Equilibrium prediction}
 Take two classical oscillators in one bath at temperature $T$, with potential
 \begin{equation}
  V_\times(x,y)=\frac{k}{2}(x^2+y^2)+gxy,\qquad q=g/k,\quad |q|<1 . \label{eq:cross}
@@ -43,7 +42,7 @@ We define positive $W_{\rm rev}$ as work done \emph{on} the oscillators. The equ
 
 Yang \emph{et al.} report two membrane modes near $\omega_0/2\pi=400$ kHz and tunable cavity-mediated coupling $\Lambda$.\cite{yang2020} Their measured normal-mode splitting implies $|q|\simeq2|\Lambda|/\omega_0$ for the cross-coupling term. The earlier estimate $|q|\simeq|\Lambda|/\omega_0$ missed a factor of two. Using the corrected value, a change from $|\Lambda|/2\pi=85$ to $58$ Hz in the \emph{equal-temperature model} would reduce $I$ by $4.83\times10^{-8}$ nats and cost $2.00\times10^{-28}$ J at 300 K. That is a theoretical benchmark, not a measured energy cost of the membranes.
 
-\section{What must change before comparing with the membranes}
+\section{Modeling the membranes}
 Two features prevent a direct test of Eq.~\eqref{eq:benchmark} with these data. One membrane is driven by added white noise while the other contacts a room-temperature bath, producing a nonequilibrium steady state with heat flow.\cite{yang2020} The cavity also shifts each mode's frequency along with their coupling. An effective classical Hamiltonian consistent with the reported mode matrix to first order in $|\Lambda|/\omega_0$ is
 \begin{equation}
  H_{\rm opt}=\frac{p_1^2+p_2^2}{2m}
@@ -99,7 +98,7 @@ The average in Eq.~\eqref{eq:work} must be known \emph{throughout} the protocol.
 \label{fig:work}
 \end{figure}
 
-\section{What the published experiment can test now}
+\section{What published data can test}
 The published normal-mode splitting and heat-flux oscillation frequency support the coupling scale $2|\Lambda|$.\cite{yang2020} Its mean heat flux approaches roughly $4\times10^{-17}$ W; using the approximate bath ratio above, the model predicts a saturation scale of $4.46\times10^{-17}$ W. This is an order-of-magnitude check, not a fit to source data. The published temperature curves also approach one another as coupling grows, as the model predicts qualitatively. Their high-power values appear below our simple model's $\simeq287\,T_L$ prediction, so that comparison remains unresolved.
 
 The public article does not supply the synchronized joint motion data or a calibrated 85 to 58 Hz work protocol needed to validate the central relation between dependence and energy. Its data and code are available from the authors on request.\cite{yang2020} The next comparison is specific: reconstruct $R_{\rm pos}$ and $R_{\rm ph}$ from both membrane quadratures at several couplings, calculate their average logs, and record the control trajectory and energy flows during a coupling change. The measured values can then be compared with Eqs.~\eqref{eq:current} and \eqref{eq:work} using the same settings.
@@ -135,7 +134,7 @@ For Eq.~\eqref{eq:opt}, let $h=2\Lambda/\omega_0$. Then $K_{\rm opt}=m\omega_0^2
 \end{equation}
 For small $|h|$, the work change is first order in the change of $h$, while $I_{\rm pos}=h^2/2+O(h^3)$. This explains why the optical-spring work cannot be inferred from Eq.~\eqref{eq:benchmark}.
 
-\section{Steady-state covariance and dependence ratio}\label{app:steady}
+\section{Steady-state covariance}\label{app:steady}
 The experiment's resonant effective-mode equation has a coupling $\Lambda$ both on and off its diagonal.\cite{yang2020} In the rotating-wave approximation, define bath occupations $n_i=k_BT_i/(\hbar\omega_0)$ and $s=\operatorname{Im}\langle b_1b_2^*\rangle$. The steady solution is
 \begin{align}
  s&=\frac{2\Lambda\gamma_1\gamma_2(n_1-n_2)}

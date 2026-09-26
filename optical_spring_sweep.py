@@ -14,6 +14,16 @@ from scipy.linalg import expm, solve_continuous_lyapunov
 
 from finite_time_sweep import W0, GAMMA1, GAMMA2, G0, G1, KB, T_LOW, gaussian_mi
 
+plt.rcParams.update({
+    "font.size": 15,
+    "axes.titlesize": 15,
+    "axes.labelsize": 15,
+    "xtick.labelsize": 13,
+    "ytick.labelsize": 13,
+    "legend.fontsize": 13,
+    "figure.titlesize": 16,
+})
+
 OUT = Path(__file__).with_name("optical_spring_results")
 OUT.mkdir(exist_ok=True)
 RATIOS = (1.0, 10.0, 430.0)
@@ -75,8 +85,8 @@ def plot_ratio_landscapes():
     fig, axs = plt.subplots(2, 2, figsize=(8.2, 6.7), sharex=True,
                             sharey=True, layout="constrained")
     pairs = [
-        (0, 2, r"$x_1$ versus $x_2$", 0.004),
-        (0, 3, r"$x_1$ versus $v_2$", 0.48),
+        (0, 2, r"$x_1$ vs. $x_2$", 0.004),
+        (0, 3, r"$x_1$ vs. $v_2$", 0.48),
     ]
     for row, (a, b, label, limit) in enumerate(pairs):
         for col, hz in enumerate((85, 58)):
@@ -87,15 +97,13 @@ def plot_ratio_landscapes():
                 xx, yy, field, levels=np.linspace(-limit, limit, 41),
                 cmap="RdBu_r", extend="both",
             )
-            axs[row, col].set_title(
-                f"{hz} Hz; correlation $\\rho={rho:.5f}$", fontsize=10
-            )
-            axs[row, col].set_xlabel("Standardized first coordinate")
+            axs[row, col].set_title(f"{hz} Hz; $\\rho={rho:.5f}$")
+            axs[row, col].set_xlabel("Standardized first")
             if col == 0:
-                axs[row, col].set_ylabel(label + "\nStandardized second coordinate")
+                axs[row, col].set_ylabel(label + "\nStandardized second")
         fig.colorbar(plot, ax=axs[row, :], shrink=0.78, pad=0.02,
-                     label=r"$\log [p_{12}/(p_1p_2)]$")
-    fig.suptitle(r"Pointwise dependence ratios at $T_H/T_L=430$")
+                     label=r"$\log R$")
+    fig.suptitle(r"Pointwise dependence at $T_H/T_L=430$")
     fig.savefig(OUT / "pointwise_ratio_landscapes.png", dpi=180)
     plt.close(fig)
 
@@ -141,7 +149,7 @@ def run(ratio, duration_ms):
 
 
 def plot(rows):
-    fig, axs = plt.subplots(1, 2, figsize=(10, 3.9))
+    fig, axs = plt.subplots(1, 2, figsize=(8.2, 3.9))
     colors = {1.0: "#1b9e77", 10.0: "#d95f02", 430.0: "#7570b3"}
     for ratio in RATIOS:
         rr = [r for r in rows if r["ratio"] == ratio]
@@ -158,7 +166,7 @@ def plot(rows):
     axs[1].set(xscale="log", yscale="log", xlabel="Ramp duration (ms)",
                ylabel=r"Work above quasistatic ($k_B T_L$)",
                title="Finite-speed excess")
-    axs[0].legend(fontsize=8)
+    axs[0].legend()
     for ax in axs:
         ax.grid(alpha=0.25)
     fig.tight_layout()

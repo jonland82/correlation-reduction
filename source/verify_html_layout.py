@@ -1,6 +1,6 @@
 """Check the static paper at phone and desktop viewports with local Edge.
 
-Optional visual check: python verify_html_layout.py
+Optional visual check: python source/verify_html_layout.py
 Writes screenshots to the system temporary directory.
 """
 
@@ -16,7 +16,7 @@ import websocket
 
 
 EDGE = Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
-URL = (Path(__file__).resolve().parent / "dependence_work.html").as_uri()
+URL = (Path(__file__).resolve().parent.parent / "docs" / "index.html").as_uri()
 
 
 def capture(width: int, height: int, port: int):

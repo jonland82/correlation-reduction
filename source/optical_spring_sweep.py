@@ -1,7 +1,7 @@
 """Finite-time work for Yang et al.'s full cavity-mediated optical spring.
 
-Run: python optical_spring_sweep.py
-Outputs: optical_spring_results/results.csv and two PNG figures.
+Run: python source/optical_spring_sweep.py
+Outputs: source/data/optical_spring_results.csv and PNG figures in docs/figures/.
 """
 from pathlib import Path
 import csv
@@ -24,8 +24,11 @@ plt.rcParams.update({
     "figure.titlesize": 16,
 })
 
-OUT = Path(__file__).with_name("optical_spring_results")
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "docs" / "figures"
 OUT.mkdir(exist_ok=True)
+DATA = ROOT / "source" / "data"
+DATA.mkdir(exist_ok=True)
 RATIOS = (1.0, 10.0, 430.0)
 DURATIONS_MS = (0.0, 0.1, 1.0, 10.0, 100.0, 1000.0)
 N_STEPS = 400
@@ -198,7 +201,7 @@ def plot(rows):
 
 def main():
     rows = [run(r, d) for r in RATIOS for d in DURATIONS_MS]
-    with (OUT / "results.csv").open("w", newline="") as f:
+    with (DATA / "optical_spring_results.csv").open("w", newline="") as f:
         writer = csv.DictWriter(f, rows[0].keys())
         writer.writeheader()
         writer.writerows(rows)

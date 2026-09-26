@@ -1,4 +1,4 @@
-"""Reproduces every number in theory_extensions.tex. Run: python extensions_calculations.py"""
+"""Reproduces the equilibrium and steady-state values. Run: python source/extensions_calculations.py"""
 import numpy as np
 from scipy.linalg import solve_continuous_lyapunov as lyap
 from scipy.optimize import brentq

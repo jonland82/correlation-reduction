@@ -1,6 +1,6 @@
-"""Build a responsive HTML edition from the current LaTeX manuscript.
+"""Build the Pages landing page from the current LaTeX manuscript.
 
-Requires pandoc and Beautiful Soup 4. Run: python build_html.py
+Requires pandoc and Beautiful Soup 4. Run: python source/build_html.py
 """
 
 from __future__ import annotations
@@ -12,9 +12,9 @@ from pathlib import Path
 from bs4 import BeautifulSoup, NavigableString
 
 
-ROOT = Path(__file__).resolve().parent
-TEX = ROOT / "dependence_work_revised.tex"
-OUTPUT = ROOT / "dependence_work.html"
+ROOT = Path(__file__).resolve().parent.parent
+TEX = ROOT / "source" / "paper.tex"
+OUTPUT = ROOT / "docs" / "index.html"
 
 
 def pandoc(source: str | None = None, standalone: bool = False) -> str:
@@ -183,11 +183,12 @@ def main() -> None:
         image["loading"] = "lazy"
         image["decoding"] = "async"
         original_id = image.attrs.pop("id")
+        image["src"] = f"figures/{Path(image['src']).name}"
         figure["id"] = original_id
         figure["class"] = "paper-figure"
         picture = soup.new_tag("picture")
         mobile = "pointwise_ratio_mobile.svg" if number == 1 else "work_vs_duration_mobile.svg"
-        picture.append(soup.new_tag("source", media="(max-width: 700px)", srcset=f"optical_spring_results/{mobile}", type="image/svg+xml"))
+        picture.append(soup.new_tag("source", media="(max-width: 700px)", srcset=f"figures/{mobile}", type="image/svg+xml"))
         image.wrap(picture)
         caption = figure.find("figcaption")
         caption.attrs.pop("aria-hidden", None)
@@ -224,10 +225,10 @@ def main() -> None:
         citation.string = f"[{citation_numbers[key]}]"
 
     topbar = soup.new_tag("div", attrs={"class": "topbar"})
-    topbar_name = soup.new_tag("a", href="#top", attrs={"class": "brand"})
-    topbar_name.string = "J. R. Landers  /  Paper"
+    topbar_name = soup.new_tag("a", href="https://github.com/jonland82/correlation-reduction", attrs={"class": "brand"})
+    topbar_name.string = "GitHub repository ↗"
     topbar.append(topbar_name)
-    pdf_link = soup.new_tag("a", href="dependence_work_revised.pdf", attrs={"class": "pdf-link", "download": ""})
+    pdf_link = soup.new_tag("a", href="paper.pdf", attrs={"class": "pdf-link", "download": ""})
     pdf_link.string = "Download PDF ↗"
     topbar.append(pdf_link)
 
@@ -268,6 +269,12 @@ def main() -> None:
               if node["href"].startswith("#") and node["href"][1:] not in ids]
     if broken:
         raise ValueError(f"Broken internal links: {broken}")
+    assets = [node["src"] for node in body.select("img[src]")]
+    assets += [node["srcset"] for node in body.select("source[srcset]")]
+    assets += ["paper.css", "paper.pdf"]
+    missing = [asset for asset in assets if not (OUTPUT.parent / asset).is_file()]
+    if missing:
+        raise ValueError(f"Missing published assets: {missing}")
 
     OUTPUT.write_text("<!doctype html>\n" + str(soup.html), encoding="utf-8")
     print(f"Wrote {OUTPUT.name}: {len(equation_numbers)} labeled equations, 15 displayed equations, 2 figures, 2 references")

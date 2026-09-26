@@ -43,4 +43,4 @@ These are model predictions, not measurements of the Yang *et al.* device. The m
 
 ## Reproduce
 
-Run `python finite_time_sweep.py` from this directory. It writes the three PNG figures and [all numerical results](finite_time_results/results.csv). Dependencies are NumPy, SciPy, and Matplotlib. Doubling the coupling-ramp discretization from 400 to 800 intervals changed the $T_H/T_L=10$ work values by less than $10^{-5}$ relative across the five nonzero durations; the 1 s equal-temperature result also approaches the analytic reversible value.
+Run `python source/finite_time_sweep.py` from the repository root. It writes the three PNG figures and [all numerical results](finite_time_results/results.csv). Dependencies are NumPy, SciPy, and Matplotlib. Doubling the coupling-ramp discretization from 400 to 800 intervals changed the $T_H/T_L=10$ work values by less than $10^{-5}$ relative across the five nonzero durations; the 1 s equal-temperature result also approaches the analytic reversible value.

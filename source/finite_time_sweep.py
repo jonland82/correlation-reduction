@@ -1,7 +1,7 @@
 """Finite-time coupling sweep for two classical Langevin oscillators.
 
-Run from this directory: python finite_time_sweep.py
-Writes figures and machine-readable results to finite_time_results/.
+Run from the repository root: python source/finite_time_sweep.py
+Writes figures and machine-readable results to archive/finite_time_results/.
 """
 from pathlib import Path
 import csv
@@ -13,7 +13,7 @@ import numpy as np
 from scipy.linalg import expm, solve_continuous_lyapunov
 
 
-OUT = Path(__file__).with_name("finite_time_results")
+OUT = Path(__file__).resolve().parent.parent / "archive" / "finite_time_results"
 OUT.mkdir(exist_ok=True)
 KB = 1.380649e-23
 T_LOW = 300.0

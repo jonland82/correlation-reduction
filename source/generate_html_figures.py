@@ -12,8 +12,8 @@ import numpy as np
 from optical_spring_sweep import log_gaussian_ratio, steady
 
 
-ROOT = Path(__file__).resolve().parent
-OUT = ROOT / "optical_spring_results"
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "docs" / "figures"
 COLORS = {1.0: "#1b9e77", 10.0: "#d95f02", 430.0: "#7570b3"}
 plt.rcParams.update({
     "svg.fonttype": "none",
@@ -25,6 +25,12 @@ plt.rcParams.update({
     "ytick.labelsize": 9.5,
     "legend.fontsize": 9.5,
 })
+
+
+def save_svg(fig, path):
+    fig.savefig(path, format="svg")
+    # Matplotlib leaves spaces at the ends of a few path-data lines.
+    path.write_text("\n".join(line.rstrip() for line in path.read_text(encoding="utf-8").splitlines()) + "\n", encoding="utf-8")
 
 
 def ratio_figure():
@@ -57,12 +63,12 @@ def ratio_figure():
         colorbar = fig.colorbar(plot, ax=ax, fraction=.055, pad=.05, extend="both")
         colorbar.ax.set_title(r"$\log R$", pad=5, fontsize=10)
         colorbar.ax.tick_params(labelsize=8)
-    fig.savefig(OUT / "pointwise_ratio_mobile.svg", format="svg")
+    save_svg(fig, OUT / "pointwise_ratio_mobile.svg")
     plt.close(fig)
 
 
 def work_figure():
-    with (OUT / "results.csv").open(newline="", encoding="utf-8") as file:
+    with (ROOT / "source" / "data" / "optical_spring_results.csv").open(newline="", encoding="utf-8") as file:
         rows = [{key: float(value) for key, value in row.items()}
                 for row in csv.DictReader(file)]
     fig, axs = plt.subplots(2, 1, figsize=(4.4, 8.0))
@@ -89,7 +95,7 @@ def work_figure():
     fig.legend(handles, labels, loc="lower center", ncol=2,
                bbox_to_anchor=(.5, .025), frameon=False,
                handlelength=1.7, columnspacing=1.2)
-    fig.savefig(OUT / "work_vs_duration_mobile.svg", format="svg")
+    save_svg(fig, OUT / "work_vs_duration_mobile.svg")
     plt.close(fig)
 
 

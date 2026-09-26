@@ -5,10 +5,10 @@
 \usepackage{lmodern}
 \usepackage[colorlinks=true,allcolors=blue!55!black]{hyperref}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{5pt}
+\setlength{\parskip}{3pt}
 \newcommand{\roadmapstep}[2]{%
   \fcolorbox{blue!55!black}{blue!5}{%
-    \parbox[c][0.72in][c]{1.22in}{\centering\small\textbf{#1}\\[2pt]\footnotesize #2}}}
+    \parbox[c][0.60in][c]{1.22in}{\centering\small\textbf{#1}\\[2pt]\footnotesize #2}}}
 \title{The Work of Reducing Dependence}
 \author{J. R. Landers}
 \date{September 2026}
@@ -16,11 +16,11 @@
 \maketitle
 
 \begin{abstract}
-Can we predict the work needed to make two physical systems less dependent, then check the prediction against an experiment? We begin with the pointwise dependence ratio $R=p_{12}/(p_1p_2)$, where $p_{12}$ is the joint probability density and $p_1,p_2$ are its marginals. We use its average log, mutual information $I$, to measure overall dependence. A solvable equilibrium model predicts exactly that a slow reduction of $I$ by $\Delta I$ costs $k_BT\Delta I$ of work. We then examine two cavity-coupled membranes as a possible test of the same dependence-and-work question. Their published coupling and heat-flux measurements constrain the model, but the real device has two baths and an optical spring that changes each membrane's frequency, so its work cannot be inferred from $\Delta I$ alone. In that model, lowering coupling reduces position dependence while increasing dependence carried by the heat current. It still requires positive control work. Existing figures check the heat-flux scale but do not report the joint motion and control work needed to test these predictions. We state the required measurements explicitly.
+How much work does it take to reduce dependence between two systems? We measure dependence with $R=p_{12}/(p_1p_2)$, the joint density divided by its marginal product, and $I=\langle\log R\rangle$. In a simple equilibrium oscillator model, a slow reduction $\Delta I$ costs exactly $k_BT\Delta I$. We then study two cavity-coupled membranes. Their optical spring changes each oscillator's stiffness, and unequal baths sustain heat flow, so work must be calculated from the control protocol. Lowering coupling reduces position dependence but increases dependence between the full oscillator states; the modeled ramps require positive work. Published data check the coupling and heat-flow scales. Testing the predicted dependence change and work together requires synchronized joint motion and a calibrated coupling ramp.
 \end{abstract}
 
 \begin{center}
-\small\textbf{From a mathematical dependence change to an experimental test}\\[6pt]
+\small\textbf{From a mathematical dependence change to an experimental test}\\[4pt]
 \roadmapstep{Define the dependence change}{$R$ and $\Delta I$}
 \hspace{2pt}$\rightarrow$\hspace{2pt}
 \roadmapstep{Calculate work}{$W_{\rm rev}=k_BT\Delta I$}
@@ -31,58 +31,54 @@ Can we predict the work needed to make two physical systems less dependent, then
 \end{center}
 
 \section{Define the dependence change}\label{sec:definition}
-The first step is to specify the statistical change whose work cost we want to calculate. We need a measure that can be evaluated on the same observables before and after a physical control protocol.
 Let $x$ and $y$ denote simultaneous position measurements of two oscillators. Write $p(x,y)$ for their joint probability density and $p_1(x)$ and $p_2(y)$ for its marginals. Their pointwise dependence ratio $R$ and mutual information $I$ are
 \begin{equation}
  R(x,y)=\frac{p(x,y)}{p_1(x)p_2(y)},\qquad
  I=\langle\log R\rangle
  =\iint p(x,y)\log R(x,y)\,dx\,dy . \label{eq:ratio}
 \end{equation}
-The brackets $\langle\cdot\rangle$ denote an average under the joint density $p(x,y)$. If the positions are independent, $R=1$ almost everywhere and $I=0$. For dependent positions, $R$ may be above one in some regions and below one in others. The average in Eq.~\eqref{eq:ratio} is their Kullback--Leibler divergence from the product distribution, in nats. We use $I$ to compare overall dependence and $R$ to locate changes within the state space.
+The brackets average over $p(x,y)$. Independence gives $R=1$ and $I=0$; when the positions are dependent, $R$ can lie on either side of one. The mean log ratio $I$ summarizes the dependence in nats, while $R$ shows where it changes.
 
-For a chosen pair of observables, define the before-to-after change as $\Delta I=I_{\rm before}-I_{\rm after}$. A positive $\Delta I$ means that the protocol reduces their dependence. We ask what signed work $W_{\rm on}$ is done on the system to produce that change, taking positive work to mean energy supplied to the system. The ratio $R$ describes each state, but work depends on the controlled Hamiltonian, baths, and path between states. We first answer the question exactly in a one-bath model, then apply the same dependence measure to a membrane system that needs a different work calculation.
+For the same observables before and after control, set $\Delta I=I_{\rm before}-I_{\rm after}$. Positive $\Delta I$ means less dependence. We ask what work $W_{\rm on}$ produces this change, with positive work supplied to the system. Work also depends on the Hamiltonian, baths, and control path.
 
 \section{Calculate the equilibrium work}\label{sec:equilibrium}
-The second step is to choose a physical process that produces the dependence change defined in Section~\ref{sec:definition}. Here we vary the coupling while keeping the bath temperature and the uncoupled spring stiffness fixed. This lets us calculate both the change in the joint distribution and the work along the control path.
-To calculate a work cost for the $\Delta I$ defined above, we start with two classical oscillators in one bath at temperature $T$. Each has uncoupled stiffness $k>0$, and the tunable cross-stiffness is $g$. Their controlled potential is
+First vary the coupling $g$ between two classical oscillators in one bath at temperature $T$. Each oscillator has stiffness $k>0$; the potential is
 \begin{equation}
  V_\times(x,y)=\frac{k}{2}(x^2+y^2)+gxy,\qquad q=g/k,\quad |q|<1 . \label{eq:cross}
 \end{equation}
-The dimensionless $q$ measures the cross-coupling relative to each spring; $|q|<1$ keeps the potential stable.
-With $k_B$ denoting Boltzmann's constant, the Gibbs distribution has covariance $k_BT\left(\begin{smallmatrix}k&g\\g&k\end{smallmatrix}\right)^{-1}$. Its position correlation coefficient is $\rho=-q$. Gaussian integration then gives
+The ratio $q=g/k$ is dimensionless, and $|q|<1$ makes the potential stable. With $k_B$ denoting Boltzmann's constant, the position covariance is $k_BT\left(\begin{smallmatrix}k&g\\g&k\end{smallmatrix}\right)^{-1}$. Its correlation coefficient is $\rho=-q$, giving
 \begin{equation}
  \rho=-q,\qquad I(q)=-\frac12\log(1-q^2),\qquad
  W_{\rm rev}=k_BT[I(q_{\rm before})-I(q_{\rm after})].
  \label{eq:benchmark}
 \end{equation}
-Here $W_{\rm rev}$ is the reversible work done on the oscillators. For a quasistatic isothermal change, it equals the change in Helmholtz free energy $F$. In this model $F(q)-F(0)=(k_BT/2)\log(1-q^2)=-k_BT I(q)$ (Appendix~\ref{app:equilibrium}), which yields Eq.~\eqref{eq:benchmark}. As $|q|$ decreases, $I$ falls and $F$ rises. This equality follows from the specified potential and bath; it is not a general conversion from information to work.
+For slow isothermal control, reversible work $W_{\rm rev}$ equals the free-energy change. Here $F(q)-F(0)=(k_BT/2)\log(1-q^2)=-k_BT I(q)$ (Appendix~\ref{app:equilibrium}). Thus lowering $|q|$ reduces $I$ and costs $k_BT\Delta I$. The equality belongs to this Hamiltonian and bath.
 
-Yang \emph{et al.} report two membrane modes with uncoupled angular frequency $\omega_0$, where $\omega_0/2\pi=400$ kHz, and tunable cavity-mediated coupling rate $\Lambda$.\cite{yang2020} Mapping their measured normal-mode splitting onto the cross-coupling model gives $|q|\simeq2|\Lambda|/\omega_0$; using $|q|\simeq|\Lambda|/\omega_0$ would miss a factor of two. With the correct mapping, a change from $|\Lambda|/2\pi=85$ to $58$ Hz in the \emph{equal-temperature cross-coupling model} would give $\Delta I=4.83\times10^{-8}$ nats and $W_{\rm rev}=2.00\times10^{-28}$ J at 300 K. These numbers establish a benchmark for the same before-and-after coupling values; they are not the work cost of the membrane apparatus.
+Yang \emph{et al.} report membranes with $\omega_0/2\pi=400$ kHz and tunable cavity coupling rate $\Lambda$.\cite{yang2020} Their mode splitting maps to $|q|\simeq2|\Lambda|/\omega_0$ in the cross-coupling model. For $|\Lambda|/2\pi$ falling from 85 to 58 Hz, that \emph{equal-temperature model} gives $\Delta I=4.83\times10^{-8}$ nats and $W_{\rm rev}=2.00\times10^{-28}$ J at 300 K. This benchmark uses the experimental coupling scale, not the membrane's actual work cost.
 
 \section{Dependence and work in membranes}\label{sec:membranes}
-The third step is to carry this calculation into an experimentally accessible system: use its joint state to evaluate $\Delta I$, and its controlled Hamiltonian to evaluate $W_{\rm on}$. The definitions from Section~\ref{sec:definition} still apply, while the physical assumptions behind the equilibrium work formula must be checked for the apparatus.
-We now ask what happens to dependence and work for that same 85 to 58 Hz change in the membranes. Two features prevent us from using Eq.~\eqref{eq:benchmark} as their work prediction. One membrane is driven by added white noise while the other contacts a room-temperature bath, producing a nonequilibrium steady state with heat flow.\cite{yang2020} The cavity also shifts each mode's frequency along with their coupling. Let $m$ be the effective mode mass, $x_i$ its position, and $p_i=m\dot x_i$ its momentum; here $p_i$ is distinct from the probability densities in Eq.~\eqref{eq:ratio}. An effective classical Hamiltonian consistent with the reported mode matrix to first order in $|\Lambda|/\omega_0$ is
+For the same coupling change, the actual membranes have a different work cost. One membrane has added noise and the other a room-temperature bath, so heat flows between them.\cite{yang2020} The cavity changes both their coupling and their individual stiffnesses. With effective mass $m$, positions $x_i$, and momenta $P_i=m\dot x_i$, a Hamiltonian consistent with the measured mode splitting to first order in $|\Lambda|/\omega_0$ is
 \begin{equation}
- H_{\rm opt}=\frac{p_1^2+p_2^2}{2m}
+ H_{\rm opt}=\frac{P_1^2+P_2^2}{2m}
  +\frac{m\omega_0^2}{2}(x_1^2+x_2^2)
  +m\omega_0\Lambda(x_1+x_2)^2 . \label{eq:opt}
 \end{equation}
-Writing the dimensionless optical-spring strength as $h=2\Lambda/\omega_0$, its stiffness matrix is $m\omega_0^2\left(\begin{smallmatrix}1+h&h\\h&1+h\end{smallmatrix}\right)$. The normal frequencies are $\omega_0$ and $\omega_0\sqrt{1+2h}$, reproducing the observed splitting to first order. At equal temperature the Helmholtz free energy $F_{\rm opt}$ of this optical-spring model changes by
+With $h=2\Lambda/\omega_0$, the stiffness matrix is $m\omega_0^2\left(\begin{smallmatrix}1+h&h\\h&1+h\end{smallmatrix}\right)$ and the mode frequencies are $\omega_0$ and $\omega_0\sqrt{1+2h}$. At equal temperature the optical-spring free energy changes by
 \begin{equation}
  F_{\rm opt}(h)-F_{\rm opt}(0)=\frac{k_BT}{2}\log(1+2h). \label{eq:optfree}
 \end{equation}
-For the slow 85 to 58 Hz change, Eq.~\eqref{eq:optfree} gives $5.60\times10^{-25}$ J at 300 K, about 2800 times the cross-only benchmark. Even at equal temperature, the same change in coupling has a different work cost because the local spring shifts in Eq.~\eqref{eq:opt} contribute at first order in $h$, while position dependence changes only at second order (Appendix~\ref{app:equilibrium}).
+For a slow 85 to 58 Hz change, this gives $5.60\times10^{-25}$ J at 300 K, about 2800 times the cross-only benchmark. The local stiffness shift contributes to work at first order in $h$; position dependence changes at second order (Appendix~\ref{app:equilibrium}).
 
-With two baths, we calculate the joint fluctuations generated by Eq.~\eqref{eq:opt}. At each coupling, $R_{\rm pos}$ is Eq.~\eqref{eq:ratio} with $x=x_1$ and $y=x_2$. The same joint-to-product density ratio defines $R_{\rm ph}$ for the full oscillator states $\boldsymbol{\xi}_i=(x_i,\dot x_i)$. Their mutual informations are $I_{\rm pos}=\langle\log R_{\rm pos}\rangle$ and $I_{\rm ph}=\langle\log R_{\rm ph}\rangle$, each averaged over its corresponding joint distribution. The latter includes the position--velocity correlation associated with heat transport. For resonant modes, weak optical-spring shifts, and independent Gaussian bath forces, a rotating-wave calculation links it to the mean heat current $J$. Let $T_i^{\rm eff}$ be the steady-state temperature inferred from mode $i$'s variance. Then
+With two baths we evaluate Eq.~\eqref{eq:ratio} for positions $(x_1,x_2)$, giving $R_{\rm pos}$ and $I_{\rm pos}=\langle\log R_{\rm pos}\rangle$, and for full states $\boldsymbol{\xi}_i=(x_i,\dot x_i)$, giving $R_{\rm ph}$ and $I_{\rm ph}=\langle\log R_{\rm ph}\rangle$. Each average uses the corresponding joint distribution. The full-state measure includes correlations associated with heat flow. For resonant modes, weak optical-spring shifts, and independent Gaussian bath forces, a rotating-wave calculation relates it to heat current $J$ and effective mode temperatures $T_i^{\rm eff}$:
 \begin{equation}
  I_{\rm ph}=-\log(1-r_J^2),\qquad
  r_J=\frac{|J|}{2|\Lambda|k_B\sqrt{T_1^{\rm eff}T_2^{\rm eff}}}.
  \label{eq:current}
 \end{equation}
-The dimensionless $r_J$ is the magnitude of the normalized cross-correlation between mode amplitudes. Equation~\eqref{eq:current} can therefore estimate $I_{\rm ph}$ from $J$, $\Lambda$, and the two effective temperatures. Measuring the joint covariance would allow $R_{\rm ph}$ and $I_{\rm ph}$ to be reconstructed more directly, without relying on the rotating-wave approximation (Appendix~\ref{app:steady}).
+Here $r_J$ is a normalized cross-correlation and $T_i^{\rm eff}$ comes from each mode's steady-state variance. A measured joint covariance would give $R_{\rm ph}$ and $I_{\rm ph}$ directly (Appendix~\ref{app:steady}).
 
 \begin{samepage}
-Let $T_H$ and $T_L$ be the hot- and cold-bath temperatures, with oscillator 1 coupled to the hot bath and oscillator 2 to the cold bath. For scale, take $T_H/T_L=430$, approximately the hot-bath level in the published temperature plot. We solve the full linear Langevin covariance equation, including terms omitted from Eq.~\eqref{eq:current}. At the two reported coupling values, the model predicts
+Let $T_H$ and $T_L$ be the hot- and cold-bath temperatures for oscillators 1 and 2. For $T_H/T_L=430$, near the published hot-bath level, the full Langevin covariance model predicts
 \begin{center}
 \begin{tabular}{lrr}
 \toprule
@@ -95,52 +91,45 @@ Mean heat current (W)&$4.45\times10^{-17}$&$4.44\times10^{-17}$\\
 \end{tabular}
 \end{center}
 \end{samepage}
-Using the before-minus-after convention of Section 1, $\Delta I_{\rm pos}=4.83\times10^{-8}$ nats, whereas $\Delta I_{\rm ph}=-1.41\times10^{-3}$ nats. The positions become less dependent, but the full oscillator states become more dependent. A weaker coupling sustains a larger temperature difference, and the position--velocity correlation associated with heat transport becomes more prominent relative to each oscillator's fluctuations. Thus a claim of reduced dependence must specify the observed variables.
+Hence $\Delta I_{\rm pos}=4.83\times10^{-8}$ nats, while $\Delta I_{\rm ph}=-1.41\times10^{-3}$ nats. Lower coupling reduces position dependence but increases full-state dependence: the heat-flow-related position--velocity correlation grows relative to each mode's fluctuations. The observed variables determine what ``less dependent'' means.
 
-Figure~\ref{fig:ratio} shows pointwise ratios for two pairs of observables. The lower row is a position--velocity marginal that illustrates one contribution to $I_{\rm ph}$; it is not the full-state ratio $R_{\rm ph}$. Within each row the same color scale is used at both coupling settings. The position ratio moves closer to one as coupling falls; the position--velocity ratio moves further from one. Neither ratio changes in the same direction at every point. Mutual information summarizes the average log ratio, not a pointwise ordering.
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.72\linewidth]{optical_spring_results/pointwise_ratio_landscapes.png}
-\caption{Predicted pointwise log ratios for standardized $(x_1,x_2)$ and $(x_1,\dot x_2)$ readings. These are two-variable marginals of the model, not reported experimental histograms.}
+\includegraphics[width=0.64\linewidth]{optical_spring_results/pointwise_ratio_landscapes.png}
+\caption{Predicted log ratios for standardized $(x_1,x_2)$ and $(x_1,\dot x_2)$; these are two-variable marginals, not measured histograms.}
 \label{fig:ratio}
 \end{figure}
+Figure~\ref{fig:ratio} shows how the pointwise ratios change. Its lower row is a position--velocity marginal, one contribution to $I_{\rm ph}$. The colors share a scale within each row; neither ratio changes uniformly at every point. $I$ summarizes its average log.
 
-\newpage
-Having identified both dependence changes, we calculate the work for the same coupling protocol. The equilibrium identity in Eq.~\eqref{eq:benchmark} cannot supply that work; differentiating the controlled Hamiltonian in Eq.~\eqref{eq:opt} with respect to $\Lambda$ instead gives
+To find the work for that coupling change, we differentiate Eq.~\eqref{eq:opt} with respect to $\Lambda$:
 \begin{equation}
  W_{\rm on}=m\omega_0\int \dot\Lambda(t)
  \left\langle[x_1(t)+x_2(t)]^2\right\rangle dt . \label{eq:work}
 \end{equation}
-Here $\dot\Lambda=d\Lambda/dt$, and the brackets average over the evolving oscillator state. That average must be known \emph{throughout} the protocol.
-We evolve the Gaussian covariance during linear 85 to 58 Hz ramps lasting $0.1$ ms to $1$ s, each initialized in the 85 Hz steady state (Appendix~\ref{app:dynamics}). All ramps require positive work on the \emph{effective mechanical Hamiltonian}. For $T_H/T_L=430$, the 1 s result is $1.60\times10^{-22}$ J at $T_L=300$ K. It exceeds the cross-only benchmark because local spring terms contribute at first order in $\Lambda$ and the hot bath increases fluctuations. It excludes laser power and heat spent maintaining the steady state; the experiment did not report this ramp. Figure~\ref{fig:work} separates total work from the smaller effect of ramp duration.
+Here $\dot\Lambda=d\Lambda/dt$; the average must be known throughout the ramp. Evolving the covariance for 0.1 ms to 1 s ramps from the 85 Hz steady state gives positive mechanical work for each ramp (Appendix~\ref{app:dynamics}). At $T_H/T_L=430$ and $T_L=300$ K, the 1 s ramp costs $1.60\times10^{-22}$ J. This is work on the effective mechanical Hamiltonian; laser power and the heat needed to sustain two baths are outside it. Figure~\ref{fig:work} shows total work and its smaller dependence on ramp speed.
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.68\linewidth]{optical_spring_results/work_vs_duration.png}
-\caption{Predicted work for the 85 to 58 Hz change. Total work (left) is dominated by the optical spring's local frequency shift. The right panel subtracts the integral of the steady-state generalized force along the same path, exposing finite-speed excess. This reference is a free-energy difference only when the baths have equal temperatures. None of these curves are measured apparatus power.}
+\includegraphics[width=0.62\linewidth]{optical_spring_results/work_vs_duration.png}
+\caption{Predicted work for the 85 to 58 Hz change. Left: total mechanical work. Right: work above the steady-state path integral, which is a free-energy difference only for equal-temperature baths. These curves are model predictions, not measured apparatus power.}
 \label{fig:work}
 \end{figure}
 
-For each ramp, the same evolving covariance supplies both quantities in our original question: its initial and final values determine $\Delta I$, and its values along the path determine $W_{\rm on}$. The table above compares steady states at the two coupling settings; a finite ramp can end before the final steady state is reached. An experimental comparison must therefore specify whether dependence is measured at the ramp endpoint or after relaxation. This pairs a well-defined dependence change with the work of a specified process.
+The covariance gives $\Delta I$ from the initial and final states and $W_{\rm on}$ from the path between them. The table compares relaxed steady states; a finite ramp may end earlier. A work comparison must use the same endpoint convention for dependence.
 
 \section{Test dependence and work}\label{sec:test}
-The final step is to measure that pair of quantities for the same protocol. Joint motion before and after control determines the dependence change; the joint motion and coupling trajectory during control determine the mechanical work through Eq.~\eqref{eq:work}. The experimental question is whether both agree with the membrane model under the same preparation, bath conditions, and endpoint convention.
-Existing measurements provide partial checks of the membrane model. The published normal-mode splitting and heat-flux oscillation frequency support the coupling scale $2|\Lambda|$.\cite{yang2020} The measured mean heat flux approaches roughly $4\times10^{-17}$ W; using the approximate bath ratio above, the model predicts a saturation scale of $4.46\times10^{-17}$ W. This is an order-of-magnitude check, not a fit to source data. The published temperature curves also approach one another as coupling grows, as the model predicts qualitatively. The reported high-power temperatures appear below our simple model's $\simeq287\,T_L$ prediction, so that comparison remains unresolved.
+Existing measurements support the coupling scale $2|\Lambda|$ and give a mean heat flux near $4\times10^{-17}$ W; the model predicts $4.46\times10^{-17}$ W at the chosen bath ratio.\cite{yang2020} The temperature trends agree qualitatively, though the reported high-power temperatures appear below the model's $\simeq287\,T_L$ prediction. These are checks of scale, not a dependence-and-work test.
 
-Testing the predicted dependence and work changes requires synchronized joint motion data and a calibrated 85 to 58 Hz work protocol, neither of which is reported in the public article. Its data and code are available from the authors on request.\cite{yang2020} A direct comparison would reconstruct $R_{\rm pos}$ and $R_{\rm ph}$ from both membrane quadratures at several couplings, calculate their average logs, and record the control trajectory and energy flows during the coupling change. The measured covariance, heat current, and work could then be compared with Eqs.~\eqref{eq:gaussianratio}, \eqref{eq:current}, and \eqref{eq:work} at the same settings. Such a measurement would test the membrane-specific predictions; it would not by itself establish the equilibrium identity in Eq.~\eqref{eq:benchmark}.
+The needed test records both membranes' joint motion before, during, and after a calibrated coupling ramp. From those data one can reconstruct $R_{\rm pos}$, $R_{\rm ph}$, and their average logs, then compare the dependence change and work with Eqs.~\eqref{eq:gaussianratio}, \eqref{eq:current}, and \eqref{eq:work}. The published article does not report these paired measurements; data and code are available from the authors on request.\cite{yang2020} This would test the membrane model, while the exact equality in Eq.~\eqref{eq:benchmark} requires its equilibrium assumptions.
 
 \section{Conclusion}
-The argument proceeds from a mathematical dependence change to a physical work prediction and then to an experimental test. Section~\ref{sec:definition} specifies the change: the joint-to-product density ratio $R$ describes dependence locally, its average log $I$ measures overall dependence, and $\Delta I=I_{\rm before}-I_{\rm after}$ quantifies the reduction for chosen observables. Section~\ref{sec:equilibrium} supplies a process that produces this reduction. Slowly lowering the cross-coupling at fixed temperature raises the free energy, giving the exact work cost $W_{\rm rev}=k_BT\Delta I$ for that Hamiltonian.
+We defined a dependence change by $\Delta I$ and asked what work produces it. For two equilibrium oscillators with controlled cross-coupling, the answer is exactly $W_{\rm rev}=k_BT\Delta I$. For the membranes, the answer depends on which variables are observed: reducing coupling lowers position dependence but raises full-state dependence at the steady endpoints. Their optical spring and two baths also make work depend on the path; each modeled ramp requires positive mechanical work.
 
-Section~\ref{sec:membranes} applies the same question to cavity-coupled membranes. Their optical spring changes local stiffness as well as coupling, and their unequal baths change the joint state. Consequently, the work must be calculated from the controlled Hamiltonian and evolving covariance. The model predicts reduced position dependence, increased dependence between the full oscillator states at the steady endpoints, and positive work for the simulated coupling ramps. These results connect the chosen statistical change to its physical implementation: the observable, bath conditions, and control path determine which dependence changes and what work accompanies it.
+The experimental test is to measure the joint state and work during the same coupling protocol, with a specified endpoint. Published data constrain the coupling and heat flow but do not yet provide that paired measurement. It would test the membrane predictions; the exact equilibrium relation applies to the simpler model under its stated conditions.
 
-Section~\ref{sec:test} identifies how to complete the arc experimentally: reconstruct $R$ and $I$ before and after a specified protocol, evaluate $\Delta I$, and measure the work during that same protocol. Existing measurements constrain the coupling and heat transport, but the paired dependence-and-work measurement remains to be performed. It would test the membrane predictions; the exact equilibrium equality requires the assumptions of Section~\ref{sec:equilibrium}. The present calculation is classical; a corresponding question about entanglement would require a quantum treatment.
-
-\paragraph{Reproducibility.} Run \texttt{optical\_spring\_sweep.py} for the finite-time CSV and figures.\par
-Run \texttt{extensions\_calculations.py} for the equilibrium and steady-state values. The equations and covariance method are detailed in the earlier working notes and the experiment's Supplementary Information.\cite{yangsupp}
+\paragraph{Reproducibility.} \texttt{optical\_spring\_sweep.py} generates the ramp data and figures; \texttt{extensions\_calculations.py} gives the equilibrium and steady-state values. The method is detailed below and in the experimental Supplementary Information.\cite{yangsupp}
 
 \appendix
 \section{Equilibrium calculations}\label{app:equilibrium}
-This appendix supplies the mathematical link used in Section~\ref{sec:equilibrium}: the same coupling parameter determines the joint distribution, its mutual information, and the free energy whose change gives reversible work. It also shows how the optical spring changes that link.
 For Eq.~\eqref{eq:cross}, the stiffness and position covariance matrices are
 \begin{equation}
  K_\times=k\begin{pmatrix}1&q\\q&1\end{pmatrix},\qquad
@@ -166,7 +155,6 @@ For Eq.~\eqref{eq:opt}, let $h=2\Lambda/\omega_0$. Then $K_{\rm opt}=m\omega_0^2
 For small $|h|$, the work change is first order in the change of $h$, while $I_{\rm pos}=h^2/2+O(h^3)$. This explains why the optical-spring work cannot be inferred from Eq.~\eqref{eq:benchmark}.
 
 \section{Steady-state covariance}\label{app:steady}
-This appendix computes the dependence at fixed membrane coupling, providing the initial state for the work protocols and the steady endpoints compared in Section~\ref{sec:membranes}. The covariance determines $R$ and $I$ for the chosen observables; Appendix~\ref{app:dynamics} then evolves it to calculate dependence change and work during a ramp.
 The experiment's resonant effective-mode equation has a coupling $\Lambda$ both on and off its diagonal.\cite{yang2020} In the rotating-wave approximation, let $b_i$ be the complex amplitude of mode $i$ and $\gamma_i$ its damping rate. With $T_1=T_H$, $T_2=T_L$, and $\hbar$ the reduced Planck constant, define the bath occupations $n_i=k_BT_i/(\hbar\omega_0)$, the steady occupations $N_{ii}=\langle|b_i|^2\rangle$, and $s=\operatorname{Im}\langle b_1b_2^*\rangle$. The steady solution is
 \begin{align}
  s&=\frac{2\Lambda\gamma_1\gamma_2(n_1-n_2)}
@@ -201,7 +189,6 @@ The steady state solves $AC+CA^{\mathsf T}+D=0$. Partition $C$ into the two osci
 The same formulas applied to the $2\times2$ position submatrix give $I_{\rm pos}$ and $R_{\rm pos}$. These definitions show why two distributions with different observed variables can have opposite dependence trends.
 
 \section{Finite-time covariance and work}\label{app:dynamics}
-This appendix completes the calculation of dependence change and work for a single control protocol. Evolving the covariance gives the final mutual information through Eq.~\eqref{eq:gaussianratio} and the accumulated work through Eq.~\eqref{eq:work}. Thus both predictions use the same state evolution and can be compared with the paired measurements proposed in Section~\ref{sec:test}.
 We divide each linear ramp into 400 intervals with constant midpoint $h$. If $C_{\rm ss}(h)$ solves the steady Lyapunov equation, one interval of duration $\delta t$ updates the covariance exactly:
 \begin{equation}
  C(t+\delta t)=C_{\rm ss}(h)
